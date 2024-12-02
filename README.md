@@ -5,11 +5,9 @@
 
 ## Administración de Memoria<br>
 ### 3.1 Política y filosofía
-1. ¿Cuál es la diferencia entre fragmentación interna y externa? Explica
-cómo cada una afecta el rendimiento de la memoria.<br>
-
-2. Investiga y explica las políticas de reemplazo de páginas en sistemas
-operativos. ¿Cuál consideras más eficiente y por qué?<br>
+1. **¿Cuál es la diferencia entre fragmentación interna y externa? Explica cómo cada una afecta el rendimiento de la memoria.**<br>
+la fragmentacion interna es cuando un proceso es mas pequeño que su partición asignada, la memoria sobrante de la particion es inutilizable y a eso se le llama fragmentacion interna, en cambio la externa es cuando hay espacios de memoria sobrantes donde ya no cabe un proceso.<br> afecta porque tanto dentro de las particiones como fuera desperdicia pequeños espacios que acumulados podrían ser utilizados para muchos otros procesos.
+2. **Investiga y explica las políticas de reemplazo de páginas en sistemas operativos. ¿Cuál consideras más eficiente y por qué?**<br>
 ### 3.2 Memoria real
 1. Escribe un programa en C o Python que simule la administración de
 memoria mediante particiones fijas.
