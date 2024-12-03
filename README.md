@@ -148,6 +148,7 @@ nota: al ejecutarse, aunque el proceso no supera el tamaño de la particion, per
 
 2. **Diseña un algoritmo para calcular qué procesos pueden ser asignados a un sistema con memoria real limitada utilizando el algoritmo de "primera cabida"**.<br>
 
+# falta
 
 ### 3.3 Organización de memoria virtual
 1. **Investiga y explica el concepto de "paginación" y "segmentación". ¿Cuáles son las ventajas y desventajas de cada técnica?**<br>
@@ -157,15 +158,23 @@ segmentacion:  tampoco exigue que esté de forma contigua, el programa se carga 
 ### 3.4 Administración de memoria virtual
 1. **Escribe un código que implemente el algoritmo de reemplazo de página "Least Recently Used" (LRU).<br>**
 2. **Diseña un diagrama que represente el proceso de traducción de direcciones virtuales a físicas en un sistema con memoria virtual.**<br>
+![diagrama](/diagrama.png)
+
 ### Integración
 1. **Analiza un sistema operativo moderno (por ejemplo, Linux o Windows) e identifica cómo administra la memoria virtual.**<br>
 2. **Realiza una simulación en cualquier lenguaje de programación que emule el swapping de procesos en memoria virtual.**<br>
 ## Administración de Entrada/Salida
 ### 4.1 Dispositivos y manejadores de dispositivos
 1. **Explica la diferencia entre dispositivos de bloque y dispositivos de carácter. Da un ejemplo de cada uno.**<br>
+
+
+    Dispositivos de bloque
+    Transfieren información en grupos de tamaño fijo, llamados bloques. Son de acceso aleatorio y la unidad mínima de lectura-escritura es un bloque. Algunos ejemplos de dispositivos de bloque son los discos duros, los disquetes y los CDROMS. 
+    Dispositivos de caracteres
+Transfieren información carácter a carácter. Se comunican con la unidad central de proceso por medio de bytes individuales. Algunos ejemplos de dispositivos de caracteres son las impresoras y los teclados.
 2. **Diseña un programa que implemente un manejador de dispositivos sencillo para un dispositivo virtual de entrada.**<br>
 ### 4.2 Mecanismos y funciones de los manejadores de dispositivos
-1. **Investiga qué es la interrupción por E/S y cómo la administra el sis- tema operativo. Escribe un ejemplo en pseudocódigo para simular este proceso.**<br>
+1. **Investiga qué es la interrupción por E/S y cómo la administra el sistema operativo. Escribe un ejemplo en pseudocódigo para simular este proceso.**<br>
 2. **Escribe un programa que utilice el manejo de interrupciones en un sistema básico de simulación.**<br>
 
 ### 4.3 Estructuras de datos para manejo de dispositivos
