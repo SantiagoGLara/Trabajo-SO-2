@@ -60,7 +60,6 @@ int main() {
     int memoria_total;
     Particion particiones[NUM_PARTICIONES];
 
-    // Solicitar el tamaño total de la memoria
     printf("Introduzca el tamaño total de la memoria en KB: ");
     scanf("%d", &memoria_total);
 
