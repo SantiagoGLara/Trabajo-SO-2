@@ -1,0 +1,27 @@
+{
+    "label": "C/C++: gcc build active file",
+    "type": "shell",
+    "command": "/usr/bin/gcc",
+    "args": [
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}/tabladepaginasmemoriavirutal",
+        "-lm"
+    ],
+    "group": {
+        "kind": "build",
+        "isDefault": true
+    },
+    "problemMatcher": ["$gcc"],
+    "detail": "Generated task by Debugger.",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "swaping",
+            "request": "launch",
+            "mainClass": "swaping",
+            "projectName": "Trabajo-SO-2_86acee6d"
+        }
+    ]
+}

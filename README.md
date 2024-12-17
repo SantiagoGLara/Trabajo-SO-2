@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Trabajo-SO
 ### Santiago Gonzalez Lara <br>Sistemas Operativos<br>Profesor: Eduardo Alcaraz
 ### trabajo sistemas operativos <br>2 de diciembre de 2024
@@ -311,4 +312,12 @@ int main() {
 2. **Diseña un sistema que maneje múltiples dispositivos simulados (disco duro, impresora, teclado) y muestra cómo se realiza la comunicación entre ellos.**<br>
 ### Avanzados
 1. **Explica cómo los sistemas operativos modernos optimizan las operaciones de entrada/salida con el uso de memoria caché.**<br>
+=======
+# INDICE DE TRABAJOS <BR>SISTEMAS OPERATIVOS
+## Santiago Gonzalez Lara
+## Profesor: Eduardo Alcaraz 
+>>>>>>> 1d32cab (casi terminado trabajo 1 e inicio comandos linux)
 
+1. TRABAJO 1: [administracion de memoria y administracion de entrada y salida. ](Trabajo1.md)<br>
+2. TRABAJO 2: [Comandos de Entrada y Salida, Discos y Archivos](Trabajo2.md)
+3. TRABAJO 3: [Proyecto Final](Trabajo3.md)
