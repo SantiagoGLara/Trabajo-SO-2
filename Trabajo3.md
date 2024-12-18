@@ -29,9 +29,47 @@ por ejemplo, cuando necesitamos la informacion en tiempo real de los procesos en
 
 **Tareas:**
 
-- Identifica los componentes clave de un sistema de archivos (por ejemplo, metadatos, tablas de asignación, etc.).
-- Crea un cuadro comparativo de cómo estos componentes funcionan en sistemas como EXT4 y NTFS.
-- Describe las ventajas y desventajas de cada sistema basado en sus componentes.
+- **Identifica los componentes clave de un sistema de archivos (por ejemplo, metadatos, tablas de asignación, etc.).**<br>
+1. superbloque: contiene informacion del sistema de archivos en general, como su tamaño, numero de bloques, ubicacion del sistema de datos, entre otros datos.
+2. bloques de datos: guardan los datos reales de los archivos
+3. inodos: tambien conocidos como nodos indice, contienen la informacion de los archivos, como su propietario, tamaño, permisos.
+4. directorios: Son estructuras que organizan archivos en una jerarquía. Cada directorio puede contener archivos y subdirectorios.
+Los directorios son gestionados por tablas o estructuras específicas que almacenan los nombres de los archivos y referencias a sus inodos.
+5. tablas de asignacion: son estructuras de datos que se encargan de rastrear cómo se asigna el espacio de almacenamiento físico del disco a los archivos y directorios.
+6. registros de journaling: registro de cambios, evita la corrupcion de los archivos
+7. metadatos: nformación sobre cada archivo y directorio como el nombre del archivo, fecha de creación, modificación y acceso, Permisos de acceso, propietario, tamaño y grupo.
+  
+
+- **Crea un cuadro comparativo de cómo estos componentes funcionan en sistemas como EXT4 y NTFS.**<br>
+
+### Comparación entre ext4 y NTFS
+
+| **Componente**               | **ext4 (Linux)**                                                                 | **NTFS (Windows)**                                                                   |
+|-------------------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| **Superbloque**              | Guarda información sobre el sistema de archivos (tamaño, estado, bloques). Tiene copias redundantes para seguridad. | Lo equivalente es la "Master File Table (MFT)", que guarda metadatos de todos los archivos y tiene copias de respaldo. |
+| **Bloques de datos**         | Tamaño personalizable (1 KB, 2 KB, 4 KB, etc.) para almacenar los datos reales. Se agrupan en grupos para eficiencia. | Usa clústeres (grupos de sectores). El tamaño se ajusta automáticamente según el disco. |
+| **Inodos**                   | Cada archivo tiene un inodo con su información (permisos, dueño, ubicación de datos). | NTFS no usa inodos. En su lugar, toda la información está en la MFT. |
+| **Directorios**              | Organizados en una jerarquía con referencias a los inodos correspondientes. | También son jerárquicos, pero las carpetas son entradas en la MFT que apuntan a otros archivos o carpetas. |
+| **Metadatos**                | Incluyen el nombre, tamaño, permisos y fechas, almacenados en los inodos. | Centralizados en la MFT, con soporte adicional para datos secundarios (streams). |
+| **Gestión de espacio libre** | Usa mapas de bits para rastrear bloques libres y ocupados. | También usa un mapa de bits para identificar clústeres libres. |
+| **Controladores de almacenamiento** | Compatible con HDD, SSD y almacenamiento en red. Soporta journaling para evitar corrupción. | Optimizado para discos locales y tiene soporte para compresión y cifrado. |
+| **Caché de sistema de archivos** | Usa memoria RAM para acelerar el acceso a datos usados frecuentemente. | Similar, utiliza caché para mejorar el rendimiento en acceso a datos. |
+| **Control de acceso y seguridad** | Basado en permisos POSIX y listas de control de acceso (ACL). | Usa listas de control de acceso (ACL) integradas con permisos de Windows. |
+| **Registros de journaling**  | Lleva un registro de cambios para evitar corrupción en caso de fallos. | También tiene journaling avanzado con registro detallado de transacciones. |
+| **Compatibilidad**           | Es nativo de Linux, pero se puede leer en otros sistemas con herramientas especiales. | Es nativo de Windows, pero puede ser usado en Linux o macOS con programas adicionales. |
+
+
+- **Describe las ventajas y desventajas de cada sistema basado en sus componentes.**<br>
+   ### Comparación entre NTFS y ext4
+
+| **Característica**         | **NTFS**                                                                 | **ext4**                                                      |
+|-----------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------|
+| **Compatibilidad**          | Nativo en Windows, funcional en Linux/macOS con herramientas adicionales. | Nativo en Linux, funcional en Windows/macOS con herramientas. |
+| **Rendimiento**             | Bueno para archivos grandes, pero más lento con fragmentación.           | Excelente para archivos pequeños y muchos directorios.        |
+| **Fragmentación**           | Propenso a fragmentarse.                                                | Muy resistente a la fragmentación.                           |
+| **Funciones avanzadas**     | Compresión, cifrado, cuotas de disco, flujos de datos alternativos.      | Carece de estas funciones.                                    |
+| **Recuperación de datos**   | Buena, gracias al journaling avanzado y la MFT.                         | Limitada, requiere herramientas específicas.                  |
+
 
 ---
 
@@ -44,8 +82,26 @@ por ejemplo, cuando necesitamos la informacion en tiempo real de los procesos en
 **Tareas:**
 
 - Diseña un árbol jerárquico que represente la organización lógica de directorios y subdirectorios.
-- Explica cómo se traduce la dirección lógica a la dirección física en el disco.
+![diagramaJerarquica](Diagrama1.png)
+- **Explica cómo se traduce la dirección lógica a la dirección física en el disco.**<br>
+Cuando un proceso entra en el estado de ejecución, un registro especial del procesador, a menudo llamado **registro base**, se carga con la dirección inicial del programa en la memoria principal. Además, existe un registro llamado **registro límite** o "valla", que marca la posición final de la memoria asignada al programa. Estos valores se configuran cuando el programa se carga en la memoria o cuando la imagen del proceso se transfiere a ella.
+<br>Durante la ejecución del proceso, se utilizan **direcciones relativas**. Estas incluyen las direcciones almacenadas en el registro de instrucciones, las direcciones de saltos o llamadas (instrucciones `call`), y las direcciones de datos especificadas en instrucciones de carga y almacenamiento. El procesador procesa estas direcciones relativas en dos pasos:
+1. **Cálculo de la dirección absoluta**: Se suma el valor del registro base a la dirección relativa para obtener una dirección absoluta.
+2. **Verificación de límites**: La dirección absoluta se compara con el valor del registro límite. Si la dirección está dentro del rango permitido, la instrucción puede ejecutarse. Si no, se genera una interrupción, que el sistema operativo debe gestionar adecuadamente.
+<br>
+Este mecanismo asegura que el proceso no acceda a regiones de memoria fuera de las asignadas, protegiendo así la estabilidad del sistema.
+podemos verlo en la siguiente imagen:
+![traduccionDireccionesLibro](image-2.png)
+
 - Proporciona un ejemplo práctico de cómo un archivo se almacena físicamente.
+Creación del archivo: Supongamos que creas documento.txt, un archivo de 5 KB.
+
+División en bloques: El archivo se divide en partes según el tamaño de los clusters. Si cada cluster es de 4 KB: Los primeros 4 KB ocupan un cluster. El último 1 KB ocupa otro cluster (aunque deja 3 KB vacíos por el tamaño fijo).
+
+Asignación de clusters: El sistema de archivos encuentra clusters libres en el disco. Por ejemplo: el archivo se almacena en los clusters 1000 y 2000.
+
+Registro en la tabla del sistema de archivos:
+ Se guarda en una tabla (como la MFT en NTFS) la información del archivo: nombre, tamaño, y los clusters asignados (1000 y 2000).
 
 ---
 
