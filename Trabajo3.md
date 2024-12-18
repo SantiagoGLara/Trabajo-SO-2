@@ -9,10 +9,16 @@
 
 **Tareas:**
 
-- Define el concepto de archivo real y archivo virtual.
-- Proporciona ejemplos de cómo los sistemas operativos manejan archivos reales y virtuales.
-- Explica un caso práctico donde un archivo virtual sea más útil que un archivo real.
-
+- **Define el concepto de archivo real y archivo virtual.** <br>
+**archivo real:** es un archivo que contiene programas, datos o cualquier otro elemento. 
+Un archivo se muestra de manera real, en la información del espacio que ocupa en un disco duro o sistema de almacenamiento, en otras palabras, su tamaño es en bytes(o su escala).
+<br>
+**archivo virtual:** es un archivo temporal utilizado por los procesos mientras estos lo necesitan, se crean durante la ejecucion de sistema para almacenar, intercambiar e organizar informacion. Terminan cuando el proceso que los necesita acaba.
+- **Proporciona ejemplos de cómo los sistemas operativos manejan archivos reales y virtuales.**<br>
+en ambos, un ejemplo de como se manejan los archivos reales es la forma "jerarquica" en la que podemos ver como están almacenados, ya sea en NFTS en windows o exfat4 en linux<br>
+en caso de los archivos virtuales, windows tiene el ejemplo de los archivos de paginación, que son archivos temporales que contienen partes de la memoria RAM que no se están utilizando activamente. Permiten que el sistema operativo pueda utilizar más memoria de la que físicamente tiene instalada. Con ubuntu podrían ser las búsquedas virtuales, donde el sistema de archivos virtual (VFS) de Linux permite unificar el acceso a diferentes tipos de dispositivos de almacenamiento, como discos duros, unidades de red y dispositivos USB.
+- **Explica un caso práctico donde un archivo virtual sea más útil que un archivo real.**<br>
+por ejemplo, cuando necesitamos la informacion en tiempo real de los procesos en ejecucion del sistema y todo lo referente a ellos, basicamente como la que nos da el administrador de tareas del sistema operativo, en ese caso los archvios virtuales nos ayudan a almacenar temporalmente esa informacion. De hacerlo con archivos reales, sería mas tardado y costoso, al implicar demasiadas lecturas y escrituras, ademas implicando un desgaste excesivo sobre el dispositivo de almacenamiento
 ---
 
 ### Ejercicio 2: Componentes de un sistema de archivos
