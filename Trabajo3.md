@@ -267,7 +267,58 @@ permite establecer, de manera general, las reglas sobre cómo se deben asignar y
 
 **Tareas:**
 
-- Define los conceptos de cifrado simétrico y asimétrico.
-- Proporciona un ejemplo práctico de cada tipo de cifrado aplicado en sistemas operativos.
-- Simula el proceso de cifrado y descifrado de un archivo con una clave dada.
+- **Define los conceptos de cifrado simétrico y asimétrico.**
+   - cifrado simetrico: utiliza una clave privada para cifrar los datos. Su seguridad depende de la longitud de su clave
+   - cifrado asimetrico: utiliza una clave publica para cifrar los datos y otra privada para descifrarlos, puede ser cifrado por cualquier persona pero solo el destinatario(o quien conozca la clave priavada) puede descifrarlo. Bastante mas complejo y costoso que el simetrico<br>
+ambos necesitan de un algoritmo de cifrado, de estos existen muchisimos y diferentes.
+- **Proporciona un ejemplo práctico de cada tipo de cifrado aplicado en sistemas operativos.**
+   - simetrico: Protección de archivos y carpetas: EFS (Encrypting File System) en Windows: Usa AES para cifrar archivos individuales.
+   - asimetrico: Firma digital en actualizaciones del sistema operativo: Sistemas como APT (Advanced Package Tool) en Linux verifican las firmas digitales de los paquetes.
 
+
+- **Simula el proceso de cifrado y descifrado de un archivo con una clave dada.**
+
+aqui una simulacion de un proceso de cifrado, con uno de los algoritmos mas sencillos AES
+```java
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class SimpleFileEncryption {
+
+    public static void main(String[] args) throws Exception {
+        String inputFile = "input.txt";
+        String encryptedFile = "encrypted.enc";
+        String decryptedFile = "decrypted.txt";
+
+        byte[] key = "1234567812345678".getBytes(); // Clave de 16 bytes
+        encryptFile(inputFile, encryptedFile, key);
+        decryptFile(encryptedFile, decryptedFile, key);
+    }
+
+    public static void encryptFile(String inputPath, String outputPath, byte[] key) throws Exception {
+        byte[] data = Files.readAllBytes(Paths.get(inputPath));
+        Cipher cipher = Cipher.getInstance("AES");
+        SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        byte[] encryptedData = cipher.doFinal(data);
+        Files.write(Paths.get(outputPath), encryptedData);
+    }
+
+    public static void decryptFile(String inputPath, String outputPath, byte[] key) throws Exception {
+        byte[] encryptedData = Files.readAllBytes(Paths.get(inputPath));
+        Cipher cipher = Cipher.getInstance("AES");
+        SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        byte[] decryptedData = cipher.doFinal(encryptedData);
+        Files.write(Paths.get(outputPath), decryptedData);
+    }
+}
+```
+aqui vemos su funcionamiento, el archivo toma como entrada `input.txt` y lo encripta
+![entrada](image-4.png)
+encriptado
+![encriptado](image-5.png)
+y aqui el resultado despues de desencriptarlo
+![desencriptado](image-6.png)
