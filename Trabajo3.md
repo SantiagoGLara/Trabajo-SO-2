@@ -217,9 +217,45 @@ permite establecer, de manera general, las reglas sobre cómo se deben asignar y
 
 **Tareas:**
 
-- Investiga y describe al menos tres tipos de amenazas comunes (por ejemplo, malware, ataques de fuerza bruta, inyección de código).
-- Explica los mecanismos de validación como autenticación multifactor y control de integridad.
-- Diseña un esquema de validación para un sistema operativo con múltiples usuarios.
+- **Investiga y describe al menos tres tipos de amenazas comunes (por ejemplo, malware, ataques de fuerza bruta, inyección de código).**
+   1. Ataques DDos: Los ataques DDoS buscan interrumpir el servicio de un servidor, red o sitio web, sobrecargándolo con un volumen masivo de tráfico. En un ataque DDoS, un atacante utiliza múltiples dispositivos comprometidos (a menudo una red de bots o "botnet") para generar tráfico de forma simultánea, lo que hace que el sistema objetivo no pueda responder a las solicitudes legítimas de los usuarios. Esto puede causar que el sitio o servicio se vuelva inaccesible, tirandolo.
+   2. Malware: software malicioso diseñado para infiltrarse, dañar o robar información de sistemas informáticos sin el consentimiento del usuario. Existen varios tipos de malware, como virus, troyanos, ransomware y spyware. El malware puede ser transmitido a través de correos electrónicos, sitios web comprometidos o archivos infectados.
+   3. Inyeccion SQL: técnica de ataque en la que un atacante inserta o "inyecta" código SQL malicioso en una consulta de base de datos, aprovechando las vulnerabilidades en una aplicación web. Esto puede permitir al atacante acceder o modificar datos en la base de datos, ejecutar comandos no autorizados o incluso eliminar información.
+- **Explica los mecanismos de validación como autenticación multifactor y control de integridad.**
+   1. Autenticacion multifactor: La autenticación multifactor (MFA) es un mecanismo de seguridad que requiere que los usuarios proporcionen dos o más factores de autenticación diferentes para verificar su identidad. Los factores de autenticación suelen clasificarse en tres tipos:
+      - Algo que sabes: Como una contraseña o PIN.
+      - Algo que tienes: Un dispositivo físico, como un teléfono móvil o un token de seguridad.
+      - Algo que eres: Características biométricas, como huellas dactilares, reconocimiento facial o iris.
+   2. control de integridad: l control de integridad es un mecanismo de seguridad diseñado para asegurar que los datos no hayan sido alterados o corrompidos de manera no autorizada. Esto puede implicar el uso de técnicas como sumas de verificación (checksums), funciones hash o firmas digitales para validar los datos.
+- **Diseña un esquema de validación para un sistema operativo con múltiples usuarios.**
+   1. Autenticación Inicial
+
+      Credenciales: Nombre de usuario y contraseña segura con políticas de complejidad.<br>
+      MFA: Segundo factor (código temporal, biometría o token físico).<br>
+      Protección: Límites de intentos y bloqueo tras múltiples fallos.
+
+2. Autorización
+
+    Roles: Asignación de permisos según roles (administrador, usuario, invitado).<br>
+    Políticas: Restricciones por tiempo, ubicación o dispositivo.<br>
+    Privilegios: Autenticación adicional para acciones críticas.
+
+3. Auditoría y Monitoreo
+
+    Logs: Registro de inicio de sesión, acceso a recursos y cambios en configuraciones.<br>
+    Protección: Encriptar y restringir acceso a los registros.<br>
+    Monitoreo: Alertas ante actividades sospechosas.
+
+4. Control de Integridad
+
+    Verificación: Hash y firmas digitales para detectar alteraciones.<br>
+    Prevención: Restringir acceso a configuraciones críticas.<br>
+    Respuesta: Restaurar desde copias seguras si es necesario.<br>
+
+5. Respuesta y Recuperación
+
+    Detección: Aislar usuarios o procesos comprometidos.<br>
+    Backups: Copias regulares almacenadas en ubicaciones seguras.<br>
 
 ---
 
