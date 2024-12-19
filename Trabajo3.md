@@ -83,6 +83,8 @@ Los directorios son gestionados por tablas o estructuras específicas que almace
 
 - Diseña un árbol jerárquico que represente la organización lógica de directorios y subdirectorios.
 ![diagramaJerarquica](Diagrama1.png)
+tambien podemos apreciar un ejemplo del libro de Antonia Estero botaro y Juan José dominguez Jimenez "sistemas operativos, conceptos fundamentales"
+![ejemplo libro](image-3.png)
 - **Explica cómo se traduce la dirección lógica a la dirección física en el disco.**<br>
 Cuando un proceso entra en el estado de ejecución, un registro especial del procesador, a menudo llamado **registro base**, se carga con la dirección inicial del programa en la memoria principal. Además, existe un registro llamado **registro límite** o "valla", que marca la posición final de la memoria asignada al programa. Estos valores se configuran cuando el programa se carga en la memoria o cuando la imagen del proceso se transfiere a ella.
 <br>Durante la ejecución del proceso, se utilizan **direcciones relativas**. Estas incluyen las direcciones almacenadas en el registro de instrucciones, las direcciones de saltos o llamadas (instrucciones `call`), y las direcciones de datos especificadas en instrucciones de carga y almacenamiento. El procesador procesa estas direcciones relativas en dos pasos:
@@ -113,12 +115,64 @@ Registro en la tabla del sistema de archivos:
 
 **Tareas:**
 
-1. Define los diferentes mecanismos de acceso.
-2. Escribe un pseudocódigo que muestre cómo acceder a:
-   - Un archivo secuencialmente.
-   - Un archivo directamente mediante su posición.
-   - Un archivo utilizando un índice.
+1. **Define los diferentes mecanismos de acceso.**
+   - acceso secuencial: visto principalmente en sistemas operativos viejos, los procesos podian acceder a los bytes/informacion de un archivo de forma ordenada, sin poder saltar y leerlos de manera desordenada. Eran utiles porque concordaban y cumplian bien la funcion para el metodo de almacenar la informacion de aquel entonces, que era con cintas magneticas
+   - acceso directo: el equipo necesita forzosamente un controlador de DMA(Direct Memory Access) por dispositivo, aunque lo comun es que un solo controlador administre las transferencias de informacion a varios dispositivos. DMA funciona de la siguiente forma: 
+      1. la cpu programa al controlador DMA
+      2. El controlador solicita la transferencia a la memoria
+      3. el controlador del disco transfiere los datos a la memoria principal
+      4. cuando la escritura se ha completado, el controlador del disco le avisa al DMA por medio de una señal de reconocimiento
+      5. el controlador de DMA incrementa la dirección de memoria a utilizar y disminuye la cuenta de bytes. Si la cuenta de bytes es aún mayor que 0, se repiten los pasos del 2 al 4 hasta que la cuenta llega a 0. 
+      6. cuando llega a 0, el DMA interrumpe a la cpu para comunicarle que la transferencia se ha completado
+   - acceso indexado: permite buscar archivos sin orden alguno, utiliza listas que contengan un campo clave o mas datos del archivo, dicha tabla se utiliza en busquedas para encontrar cierta posicion o valor de un archivo
+
+2. **Escribe un pseudocódigo que muestre cómo acceder a:**
+   - **Un archivo secuencialmente.**
+   ```
+   Abrir archivo
+   línea_actual = ""
+   Mientras NO fin_del_archivo(archivo):
+      línea_actual = Leer línea del archivo
+      Procesar(línea_actual)
+   Cerrar archivo
+   ```
+   - **Un archivo directamente mediante su posición.**
+   ```
+   Configurar DMA con dirección de memoria inicial y cuenta de bytes
+   Mientras cuenta_de_bytes > 0:
+      Solicitar transferencia al controlador del disco
+      Transferir datos desde el disco a la dirección de memoria actual
+      Esperar señal de reconocimiento del controlador del disco
+      Incrementar dirección de memoria
+      Decrementar cuenta_de_bytes
+   Interrumpir CPU para indicar que la transferencia ha finalizado
+
+   ```
+   - **Un archivo utilizando un índice.**
+   ```
+   Abrir archivo 
+   cargar tabla de índices en memoria
+   Mientras NO fin_de_lista_de_indices:
+      índice_actual = Leer siguiente índice de la tabla
+      Posicionar puntero del archivo en índice_actual
+      dato = Leer datos en índice_actual
+      Procesar(dato)
+   Cerrar archivo
+   ```
 3. Compara las ventajas de cada mecanismo dependiendo del caso de uso.
+
+| Método de Acceso    | Ventajas                                         | Desventajas                                    |
+|---------------------|--------------------------------------------------|------------------------------------------------|
+| **Acceso Secuencial** | - Simple de implementar                         | - Lento al acceder a grandes cantidades de datos sin orden específico |
+|                     | - Requiere poca memoria                         | - Solo permite leer en orden, sin saltos       |
+|                     | - Adecuado para procesos de lectura lineales     | - No eficiente para búsquedas rápidas          |
+| **Acceso Directo**    | - Acceso rápido a cualquier parte del archivo   | - Requiere más memoria para gestionar punteros |
+|                     | - Permite saltar directamente a la ubicación deseada | - Puede ser más complejo de implementar       |
+|                     | - Eficiente en archivos grandes                  | - No es adecuado para archivos pequeños       |
+| **Acceso Indexado**   | - Acceso rápido mediante índices                | - Requiere mantener y actualizar una tabla de índices |
+|                     | - Ideal para búsquedas rápidas                  | - Puede ser más lento si los índices están desordenados |
+|                     | - Más eficiente que el acceso secuencial y directo en algunas situaciones | - Requiere más espacio de almacenamiento     |
+
 
 ---
 
