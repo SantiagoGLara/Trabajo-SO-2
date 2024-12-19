@@ -84,7 +84,7 @@ Los directorios son gestionados por tablas o estructuras específicas que almace
 - Diseña un árbol jerárquico que represente la organización lógica de directorios y subdirectorios.
 ![diagramaJerarquica](Diagrama1.png)
 tambien podemos apreciar un ejemplo del libro de Antonia Estero botaro y Juan José dominguez Jimenez "sistemas operativos, conceptos fundamentales"
-![ejemplo libro](image-3.png)
+
 - **Explica cómo se traduce la dirección lógica a la dirección física en el disco.**<br>
 Cuando un proceso entra en el estado de ejecución, un registro especial del procesador, a menudo llamado **registro base**, se carga con la dirección inicial del programa en la memoria principal. Además, existe un registro llamado **registro límite** o "valla", que marca la posición final de la memoria asignada al programa. Estos valores se configuran cuando el programa se carga en la memoria o cuando la imagen del proceso se transfiere a ella.
 <br>Durante la ejecución del proceso, se utilizan **direcciones relativas**. Estas incluyen las direcciones almacenadas en el registro de instrucciones, las direcciones de saltos o llamadas (instrucciones `call`), y las direcciones de datos especificadas en instrucciones de carga y almacenamiento. El procesador procesa estas direcciones relativas en dos pasos:
@@ -185,10 +185,27 @@ Registro en la tabla del sistema de archivos:
 **Tareas:**
 
 - Diseña un modelo jerárquico para un sistema de archivos con al menos tres niveles de directorios.
+![ejemplo libro](jerarquiakkk.png)
 - Simula una falla en un directorio específico y describe los pasos necesarios para recuperarlo.
-- Explica el concepto de protección basada en el lenguaje.
-- Proporciona un ejemplo de cómo un lenguaje como Java o Rust asegura la memoria y evita accesos no autorizados.
-- Compara este enfoque con otros mecanismos de protección en sistemas operativos.
+   1. Verificar el Daño en el Directorio
+   2. Verificar la Integridad del Sistema de Archivos
+   3. Comprobar los Backups Disponibles
+   4. Restaurar desde un Backup
+   5. Verificar la Restauración
+   6. Comprobar el Estado General del Sistema de Archivos
+   7. Establecer un Plan de Copias de Seguridad Regular
+- **Explica el concepto de protección basada en el lenguaje.**<br>
+permite establecer, de manera general, las reglas sobre cómo se deben asignar y utilizar los recursos. Estas reglas pueden variar según la aplicación y cambiar con el tiempo. Por esta razón, la protección ya no es algo que solo le corresponde al diseñador del sistema operativo, sino que también debe ser una herramienta que los desarrolladores de aplicaciones puedan usar para proteger los recursos dentro de sus programas frente a errores o interferencias. Es aquí donde los lenguajes de programación tienen un papel importante. Especificar cómo se debe controlar el acceso a un recurso compartido en un sistema significa hacer una declaración sobre ese recurso, y este tipo de declaración puede añadirse al lenguaje mediante una extensión en su sistema de tipos.
+- **Proporciona un ejemplo de cómo un lenguaje como Java o Rust asegura la memoria y evita accesos no autorizados.**
+   -java esta hecho para ejecutarse en un entorno distribuido, con lo que su proteccion la gestiona su maquina virtual
+   -carga dinamicamente clases que no sean de confianza a traves de una red y las ejecuta dentro de una misma maquina virtual
+   -asigna un dominio de proteccion a cada clase cargada, lo que limita los permisos de las operaciones dee la clase
+   -cada que se realiza una operacion privilegiada, verifica que la biblioteca en efecto tenga el permiso
+- **Compara este enfoque con otros mecanismos de protección en sistemas operativos.**
+
+|           | dominios de proteccion | listas de control de acceso | sistemas confiables | seguridad multinivel | canales encubiertos | 
+|-----------|-----------|-----------|-----------|-----------|-----------|
+| Característica Principal | conjunto finito de operaciones que puede realizar un objeto/archivo, se ve como pares de objeto-permiso. almacena esta informacion en una matriz | version mejorada de los domnios de proteccion, pues almacena los dominos en una matriz donde solo se llenan los permisos requeridos, sin dejar espacios vacios  | capar las operaciones del sistema operativo, metodo muy poco utilizado   | utiliza controles de acceso, si lo queremos ver así `por roles` para saber quien puede hacer que. jerarquia de permisos | identifica 3 partes: cliente, servidor y colaborador. Cada uno hace las tareas que el otro le solicite, sin darle acceso a su informacion   | 
 
 ---
 
